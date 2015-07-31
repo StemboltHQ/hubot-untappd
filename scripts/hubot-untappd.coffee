@@ -43,7 +43,7 @@ availableActionNames = (rating) ->
     ["choked down a", "managed to finish a", "reluctantly tried a", "kept down a", "shouldn't have had a"]
   else if !rating || rating <= 4.0
     # normal
-    ["drank a", "had a", "purchased a", "slammed a", "chugged a", "downed a", "imbibed a", "hammed a", "slurped a"]
+    ["drank a", "had a", "slammed a", "chugged a", "downed a", "imbibed a", "hammed a", "slurped a"]
   else
     # good
     ["thoroughly enjoyed a", "quenched their thurst with a", "drowned themselves in"]
