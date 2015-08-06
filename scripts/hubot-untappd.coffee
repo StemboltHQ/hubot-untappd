@@ -46,7 +46,7 @@ availableActionNames = (rating) ->
     ["drank a", "had a", "slammed a", "chugged a", "downed a", "imbibed a", "hammed a", "slurped a"]
   else
     # good
-    ["thoroughly enjoyed a", "quenched their thurst with a", "drowned themselves in"]
+    ["thoroughly enjoyed a", "quenched their thirst with a", "drowned themselves in"]
 
 actionNameFor = (rating) ->
   possible = availableActionNames(rating)
