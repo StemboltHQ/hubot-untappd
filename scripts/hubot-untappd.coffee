@@ -97,6 +97,9 @@ module.exports = (robot) ->
       "`hubot untappd [last] [n] beer(s)` - shows the last `n` beers you had, default `n` is 1, max `n` is 10"
     msg.reply helpText
 
+  robot.respond /untappd refresh$/i, (msg) ->
+    update()
+
   robot.respond /untappd identify$/i, (msg) ->
     id = msg.envelope.user.id
     user = robot.brain.userForId(id)
