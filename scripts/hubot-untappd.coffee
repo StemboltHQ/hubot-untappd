@@ -36,15 +36,18 @@ getUserFeed = (user, cb) ->
     untappd.userFeed handleUserFeed(user, cb), user_name, 1
 
 availableActionNames = (rating) ->
-  if rating && rating <= 2.0
+  if Math.random() < 0.10
+    # silly
+    ["acquired through legitimate means one", "allegedly consumed a", "has been spotted drinking", "gargled some", "under laboratory conditions drank a", "had some drinky. Specifically,", "believes all problems can be solved by", "beer'd", "cleansed their palette with", "considered whether it was possible to homebrew", "drank through a krazy straw a", "claims to have had a"]
+  else if rating && rating <= 2.0
     # bad
-    ["choked down a", "managed to finish a", "reluctantly tried a", "kept down a", "shouldn't have had a"]
+    ["choked down a", "managed to finish a", "reluctantly tried a", "kept down a", "shouldn't have had a", "later regretted having a", "was revolted by a", "hates"]
   else if !rating || rating <= 4.0
     # normal
-    ["drank a", "had a", "slammed a", "chugged a", "downed a", "imbibed a", "hammed a", "slurped a"]
+    ["drank a", "had a", "slammed a", "chugged a", "downed a", "imbibed a", "hammed a", "slurped a", "consumed a", "gulped a", "quaffed a", "sampled a"]
   else
     # good
-    ["thoroughly enjoyed a", "quenched their thurst with a", "drowned themselves in"]
+    ["thoroughly enjoyed a", "quenched their thurst with a", "drowned themselves in", "loves"]
 
 actionNameFor = (rating) ->
   possible = availableActionNames(rating)
