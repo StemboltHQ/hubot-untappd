@@ -26,8 +26,6 @@ handleUserFeed = (user, cb) ->
     if o.response.checkins.count > 0
       checkins = o.response.checkins.items
       cb(checkins) if cb
-      user.untappd.last_checkins = checkins
-      user.untappd.max_id = _(checkins).map("checkin_id").max().valueOf()
 
 getUserFeed = (user, cb) ->
   user_name = user.untappd.user_name
@@ -85,6 +83,7 @@ module.exports = (robot) ->
             .each (checkin) ->
               m = formatCheckin(checkin, true)
               robot.messageRoom ROOM, m
+          user.untappd.max_id = _(checkins).map("checkin_id").max().valueOf()
 
   updater = new cronjob UPDATE_TIME,
     -> update()
@@ -126,15 +125,15 @@ module.exports = (robot) ->
     num = 10 if num > 10
     user = robot.brain.userForId(msg.envelope.user.id)
     return msg.reply("You haven't set your username") if !user.untappd
-    checkins = user.untappd.last_checkins
-    return msg.reply("You haven't made any check-in on any beer at untappd yet") if !checkins or checkins.length < 1
-    m = ""
-    if num is 1
-      lastCheckin = _.first checkins # checkins apparently come in reverse order
-      m = formatCheckin(lastCheckin, false)
-    else
-      m = _(checkins).map (ci) ->
-            formatCheckin(ci, false)
-        .take(num)
-        .join("\n")
-    msg.reply(m)
+    getUserFeed user, (checkins) ->
+      return msg.reply("You haven't made any check-in on any beer at untappd yet") if !checkins or checkins.length < 1
+      m = ""
+      if num is 1
+        lastCheckin = _.first checkins # checkins apparently come in reverse order
+        m = formatCheckin(lastCheckin, false)
+      else
+        m = _(checkins).map (ci) ->
+              formatCheckin(ci, false)
+          .take(num)
+          .join("\n")
+      msg.reply(m)
